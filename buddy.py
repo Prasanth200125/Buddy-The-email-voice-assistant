@@ -36,8 +36,8 @@ def send_email(subject, body, sender_email):
     msg.attach(MIMEText(body, 'plain'))
 
 
-    username = 'gprasanth60@gmail.com'
-    password = 'zxztxhmvqebjkxmy'
+    username = #'yourmail@gmail.com'
+    password = #'password'
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(username, password)
