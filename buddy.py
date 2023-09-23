@@ -9,7 +9,7 @@ def get_voice_input():
 
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Speak now...")
+        print("\nSpeak now...")
         audio = r.listen(source)
     try:
         text = r.recognize_google(audio)
@@ -36,8 +36,8 @@ def send_email(subject, body, sender_email):
     msg.attach(MIMEText(body, 'plain'))
 
 
-    username = #'yourmail@gmail.com'
-    password = #'password'
+    username = 'gprasanth60@gmail.com'
+    password = 'zxztxhmvqebjkxmy'
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(username, password)
@@ -64,37 +64,50 @@ def main_loop():
         speak("Sorry, I didn't understand that. Please try again.")
         body = get_voice_input()
 
-    print("Who is the email provider: A)Gmail B)MUJ C)Outlook ")
-    speak("Who is the email provider: A)Gmail B)MUJ C)Outlook ")
+    print("Who is the email provider: 1)Gmail 2)Manipal 3)Outlook ")
+    speak("Who is the email provider: 1)Gmail 2)Manipal 3)Outlook ")
     email = get_voice_input()
-    if(email=='a'):
-        email="@gmail.com"
-    elif(email=='b'):
-        email="@muj.manipal.edu"
-    elif(email=='c'):
-        email="@outlook.com"
+    email_p = ''
+    fn =''
+    n=''
+    if email == 'Gmail':
+        speak("What is the email address you want to send?")
+        sender_email = get_voice_input()
+        email_p = "@gmail.com"
+    elif  email == 'Manipal':
+        print("Tell the first name of the outlook id")
+        speak("Tell the first name of the outlook id")
+        fn=get_voice_input()
+        print("Tell the registration of the outlook id")
+        speak("Tell the registration of the outlook id")
+        n=get_voice_input()
+        sender_email = fn+'.'+n
+        email_p="@muj.manipal.edu"
+    elif  email == 'Outlook':
+        speak("What is the email address you want to send?")
+        sender_email = get_voice_input()
+        email_p = "@outlook.com"
         
-    while not sender_email:
+    while not email:
         speak("Sorry, I didn't understand that. Please try again.")
         email = get_voice_input()
 
-    speak("What is the email address you want to send?")
-    sender_email = get_voice_input()+email
+    
     while not sender_email:
         speak("Sorry, I didn't understand that. Please try again.")
         sender_email = get_voice_input()
-
+    sender_email=sender_email + email_p
     speak("Here is your email. Please confirm the details.")
     speak(f"Subject: {subject}")
     speak(f"Body: {body}")
     speak(f"Sender email: {sender_email}")
-    speak("Do you want to send this email?")
+    speak("Do you want to send this email? a)Send it  b)No don't")
     response = get_voice_input()
-    while response not in ['ok', 'no','yes','okay']:
+    while response not in ["send it", "no don't"]:
         speak("Sorry, I didn't understand that. Please try again.")
         response = get_voice_input()
 
-    if response == ('ok')or('okay')or('yes'):
+    if response == ("send it"):
         send_email(subject, body, sender_email)
         speak("Email sent successfully.")
     else:
